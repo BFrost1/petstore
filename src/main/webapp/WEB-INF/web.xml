@@ -1,7 +1,92 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+	
+ 
+ 	<servlet>
+	  	<servlet-name>homeController</servlet-name>
+	  	<servlet-class>ua.petstore.controllers.HomeController</servlet-class>
+  	</servlet>
+	<servlet>
+	  	<servlet-name>shopController</servlet-name>
+	  	<servlet-class>ua.petstore.controllers.ShopController</servlet-class>
+  	</servlet>
+  	<servlet>
+	  	<servlet-name>servicesController</servlet-name>
+	  	<servlet-class>ua.petstore.controllers.ServicesController</servlet-class>
+  	</servlet>
+  	<servlet>
+  		<servlet-name>hotelController</servlet-name>
+  		<servlet-class>ua.petstore.controllers.HotelController</servlet-class>
+  	</servlet>
+	<servlet>
+		<servlet-name>contactsController</servlet-name>
+	  	<servlet-class>ua.petstore.controllers.ContactsController</servlet-class>
+	</servlet>
+  	<servlet>
+  		<servlet-name>registrationController</servlet-name>
+  		<servlet-class>ua.petstore.controllers.RegistrationController</servlet-class>
+  	</servlet>
+  	<servlet>
+  		<servlet-name>authorizationController</servlet-name>
+  		<servlet-class>ua.petstore.controllers.AuthorizationController</servlet-class>
+ 	</servlet>
+  	<servlet>
+  		<servlet-name>accountController</servlet-name>
+  		<servlet-class>ua.petstore.controllers.AccountController</servlet-class>
+  	</servlet>
+  	<servlet>
+  		<servlet-name>cartController</servlet-name>
+  		<servlet-class>ua.petstore.controllers.CartController</servlet-class>
+  	</servlet>
+  	<filter>
+	  <filter-name>accountFilter</filter-name>
+	  <filter-class>ua.petstore.filter.AccountFilter</filter-class>
+	</filter>
+  	
 
-<web-app>
-  <display-name>Archetype Created Web Application</display-name>
+  	<servlet-mapping>
+  		<servlet-name>homeController</servlet-name>
+  		<url-pattern></url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+  		<servlet-name>shopController</servlet-name>
+  		<url-pattern>/shop</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+  		<servlet-name>servicesController</servlet-name>
+  		<url-pattern>/services</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+  		<servlet-name>hotelController</servlet-name>
+  		<url-pattern>/hotel</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+  		<servlet-name>contactsController</servlet-name>
+  		<url-pattern>/contacts</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+  		<servlet-name>registrationController</servlet-name>
+  		<url-pattern>/registration</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+  		<servlet-name>authorizationController</servlet-name>
+  		<url-pattern>/authorization</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+  		<servlet-name>accountController</servlet-name>
+  		<url-pattern>/account</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+  		<servlet-name>cartController</servlet-name>
+  		<url-pattern>/cart</url-pattern>
+  	</servlet-mapping>
+  	<filter-mapping>
+	  <filter-name>accountFilter</filter-name>
+	  <servlet-name>accountController</servlet-name>
+	</filter-mapping>
+  	
+
 </web-app>

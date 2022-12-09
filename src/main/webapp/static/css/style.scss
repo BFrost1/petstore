@@ -1,0 +1,1065 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
+
+*{
+	font-family: 'Poppins', sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	outline: none;
+	border: none;
+	text-decoration: none;
+	transition: .2s linear;
+}
+
+$carrot-color: #e67e22;
+$black: #130f40;
+$white:#fff;
+$light-yellow:#ffd700;
+$light-color: #666;
+$light-bg: #eee;
+$border: .2rem solid $black;
+$box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
+
+@mixin grid($count, $val) {
+  display: grid;
+  grid-template-columns: repeat($count, $val);
+  gap: 1.5rem;
+}
+
+@mixin form-btn{
+	width: 100%;
+	text-align: center;
+
+	&:hover{
+		background: $black;
+	}
+}
+
+@mixin white-btn{
+	color: $white;
+	border-color: $white;
+
+	&:hover{
+		color: $carrot-color;
+	}
+
+	&::before{
+		background: $white;
+	}
+}
+
+
+@mixin carrot-btn{
+	color: $carrot-color;
+	border-color: $carrot-color;
+
+	&:hover{
+		color: $white;
+	}
+
+	&::before{
+		background: $carrot-color;
+	}
+}
+
+@keyframes fadeIn{
+	0%{
+		transform: translateY(3rem);
+		opacity: 0;
+	}
+}
+
+
+html{
+	height: 100%;
+	font-size: 67%;
+	overflow-x: hidden;
+	scroll-behavior: smooth;
+	scroll-padding-top: 4rem;
+
+	&::-webkit-scrollbar{
+		width: 1rem;
+	}
+
+	&::-webkit-scrollbar-track{
+		background: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb{
+		background: $carrot-color;
+		border-radius: 5rem;
+	}
+}
+
+main{
+	min-height: 75rem;
+}
+
+
+section{
+	padding: 5rem 9%;
+}
+
+.heading{
+	padding:  4rem 0 2rem 0;
+	text-align: center;
+	font-size: 3.5rem;
+	color: $black;
+
+	span{
+		color: $carrot-color;
+	}
+}
+
+
+.btn{
+	display: inline-block;
+	margin-top: 1rem;
+	padding: .8rem 2.8rem;
+	border-radius: 5rem;
+	border-top-left-radius: 0;
+	border: $border;
+	cursor: pointer;
+	background: none;
+	color: $black;
+	font-size: 1.7rem;
+	overflow: hidden;
+	z-index: 0;
+	position: relative;
+
+	&::before{
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: $black;
+		z-index: -1;
+		transition: .2s linear;
+		clip-path: circle(0% at 0% 5%);
+	}
+
+	&:hover::before{
+		clip-path: circle(100%);
+	}
+
+	&:hover{
+		color: $white;
+	}
+}
+
+.header{
+	background: $white;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 2rem 9%;
+	box-shadow: $box-shadow;
+	position: relative;
+	top: 0;
+	left: 0;
+	right: 0;
+	
+	.logo{
+		font-size: 2.5rem;
+		color: $black;
+		font-weight: bolder;
+
+		i{
+			color: $carrot-color;
+		}
+	}
+	.navbar a{
+		margin: 0 1rem;
+		font-size: 1.7rem;
+		color: $light-color;
+
+		&:hover{
+			color: $carrot-color;
+		}
+	}
+
+	.icons{
+		display: flex;
+		align-items: center;
+	}
+
+	.icons a, .icons div{
+		font-size: 2.5rem;
+		margin-left: 1.5rem;
+		color:$black;
+		cursor: pointer;
+
+		&:hover{
+			color: $carrot-color;
+		}
+	}
+	
+	.login-form{
+		position: absolute;
+		top:120%;
+		right: 2rem;
+		width: 35rem;
+		border-radius: 1rem;
+		background: $white;
+		box-shadow: $box-shadow;
+		padding: 2rem;
+		display: none;
+		z-index: 100;
+
+		&.active{
+			display: block;
+			animation: fadeIn .4s linear;	
+		}
+
+		h3{
+			color: $black;
+			font-size: 2.5rem;
+			padding-bottom: .5rem;
+		}
+
+		.box{
+			width: 100%;
+			border-bottom: $border;
+			border-width: .1rem;
+			padding: 1.5rem 0;
+			font-size: 1.6rem;
+			color: $black;
+			text-transform: none;
+			margin: 1rem 0;
+		}
+
+		.checkbox{
+			display: flex;
+			align-items: center;
+			gap: .5rem;
+			padding: 1rem 0;
+
+			label{
+				font-size: 1.2rem;
+				cursor: pointer;
+				color: $light-color;
+			}
+		}
+
+		.btn{
+			@include form-btn();
+			margin: 1.5rem 0;
+		}
+
+		.links{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 1rem;
+
+			div{
+				font-size: 1.4rem;
+				color: $carrot-color;
+
+				&:hover{
+					color: $black;
+					text-decoration: underline;
+					cursor: pointer;
+				}
+			}
+		}
+		
+		.errors{
+			color:red;
+		}
+	}
+
+	.reg-form{
+		position: absolute;
+		top:120%;
+		right: 2rem;
+		width: 35rem;
+		border-radius: 1rem;
+		background: $white;
+		box-shadow: $box-shadow;
+		padding: 2rem;
+		display: none;
+		z-index: 100;
+
+		&.active{
+			display: block;
+			animation: fadeIn .4s linear;	
+		}
+
+		h3{
+			color: $black;
+			font-size: 2.5rem;
+			padding-bottom: .5rem;
+		}
+
+		.box{
+			width: 100%;
+			border-bottom: $border;
+			border-width: .1rem;
+			padding: 1.5rem 0;
+			font-size: 1.6rem;
+			color: $black;
+			text-transform: none;
+			margin: 1rem 0;
+		}
+
+		.birthday{
+			border-bottom: $border;
+			border-width: .1rem;
+			padding: 1.5rem 0;
+			font-size: 1.6rem;
+			color: $black;
+			text-transform: none;
+			margin: 1rem 0;
+
+			input{
+				font-size: 1.6rem;
+				color: $light-color;
+			}
+
+			label{
+				font-size: 1.6rem;
+				color: $light-color;
+			}
+		}
+
+		.checkbox{
+			display: flex;
+			align-items: center;
+			gap: .5rem;
+			padding: 1rem 0;
+
+			label{
+				font-size: 1.2rem;
+				cursor: pointer;
+				color: $light-color;
+			}
+		}
+
+		.btn{
+			@include form-btn();
+			margin: 1.5rem 0;
+		}
+
+		.links{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 1rem;
+
+			div{
+				font-size: 1.4rem;
+				color: $carrot-color;
+
+				&:hover{
+					color: $black;
+					cursor: pointer;
+					text-decoration: underline;
+				}
+			}
+		}
+		
+		.errors{
+			color:red;
+		}
+	}
+
+	.cart-form{
+		position: absolute;
+		top:120%;
+		right: 2rem;
+		width: 40rem;
+		border-radius: 1rem;
+		background: $white;
+		box-shadow: $box-shadow;
+		padding: 2rem;
+		display: none;
+		z-index: 1000;
+
+		&.active{
+			display: block;
+			animation: fadeIn .4s linear;	
+		}
+
+		h3{
+			color: $black;
+			font-size: 2.5rem;
+			padding-bottom: .5rem;
+		}
+
+		.box-cart{
+			display: grid;
+			grid-template-columns: 5rem 15rem 10rem 3rem;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
+			height: 7rem;
+			border-bottom: $border;
+			border-width: .1rem;
+			font-size: 1.6rem;
+			overflow: hidden;
+			color: $black;
+			text-transform: none;
+			margin: 1rem 0;
+
+		  .image{
+		    height: 5rem;
+		    width: 5rem;
+		    overflow: hidden;
+
+			  img{
+				  height: 100%;
+				  width:100%;
+				  object-fit: contain;
+			   }
+		   }
+			
+			h3{
+				color: $black;
+				font-size: 1.3rem;
+				padding-bottom: .5rem;
+				overflow: hidden;
+			}
+		   
+		   span{
+		   		font-size: 2rem;
+		   		color: $carrot-color;
+		   }
+
+		   .delet-items{
+		   		font-size: 2rem;
+			   	width: 100%;
+			   	height: 100%;
+			   	color: red;
+		   		background: $white;
+		   }
+		}
+
+		.btn{
+			@include form-btn();
+			margin: 1.5rem 0;
+		}
+	}
+}
+
+.home{
+	min-height: 92.5vh;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	background: url(../images/front/home.jpg);
+	background-position: center;
+	background-size: cover;
+	position: relative;
+	
+	.content{
+		 width:50rem;
+
+		h3{
+			font-size: 4rem;
+			color: $white;
+			padding-bottom: 1rem;
+
+			span{
+				color: $carrot-color;
+			}
+		}
+		.btn{
+			@include white-btn();
+		}
+	}
+}
+
+.shop{
+	display: flex;
+
+	.category{
+		h4{
+			font-size: 2.8rem;
+			margin-bottom: 2.5rem;
+			color: $carrot-color;
+		}
+		.navbar-category{
+			display: flex;
+			flex-direction: column;
+		    align-self: center;
+		    width: 30rem;
+
+		    a{
+		    	height: 4rem;
+				font-size: 1.9rem;
+				color: $black;
+
+				&:hover{
+					color: $carrot-color;
+					cursor: pointer;
+				}
+		    }
+		}
+	}
+
+	.box-container{
+	  @include grid(5, 20rem);
+
+	.box{
+	    position: relative;
+	    overflow: hidden;
+
+
+	    	&:hover{
+		      	.image img{
+		        	transform: scale(1.1);
+		     	}
+
+		      	.icons{        
+		        	transform: translateX(1rem);
+		      	}
+		    }
+
+		    .image{
+		      	height: 15rem;
+		     		width:100%;
+		      	overflow: hidden;
+
+			    img{
+				    height: 100%;
+				    width:100%;
+				    object-fit: contain;
+			    }
+		    }
+
+		    .icons{
+		      	position: absolute;
+		     		top: 1rem; 
+		      	right: 2rem;
+		      	z-index: 10;
+		      	transform: translateX(10rem);
+
+		      	a{
+			        display: block;
+			        width: 4rem;
+			        height: 4rem;
+			        line-height: 4rem;
+			        font-size: 2rem;
+			        margin-top: 1rem;
+			        background: $white;
+			        color: $black;
+			        text-align: center;
+
+			        &:hover{
+			          color: $white;
+			          background: $carrot-color;
+			        }
+		      	}
+		    }
+
+		    .content{
+		      	padding: 1rem 0;
+		      	text-align: center;
+		        margin: 0 1rem;
+
+			    h4{
+			    	font-size: 1.5rem;
+				    color:$black;
+			    }
+
+			    .amount{
+			    	display: flex;
+			    	justify-content: space-between;
+					align-items: center;
+			    	font-size: 1.7rem;
+			    	color:$carrot-color;
+			    	margin: 0 1.5rem;
+
+				    button{
+				        display: block;
+				        width: 5rem;
+				        height: 5rem;
+				        line-height: 5rem;
+				        font-size: 2.2rem;
+				        background: $white;
+				        color: green;
+				        text-align: center;
+
+				        &:hover{
+				          color: $white;
+				          border-radius: 5rem;
+				          background: rgba(3, 177, 3, 0.5);
+				        }
+			      	}
+
+			      	h4{
+			      		color: $carrot-color;
+			      		font-size: 2.1rem;
+			      	}
+			    }
+
+		    }
+	  	}
+	}
+}
+
+
+
+.services{
+	.box-container{
+	  @include grid(3,30rem);
+	  justify-content: center;
+
+	  	.box{
+	    	background: $light-bg;
+	    	padding:3rem;
+	    	text-align: center;
+	    	border-radius: 33% 67% 70% 30% / 30% 30% 70% 70%;
+
+	    	&:nth-child(even){
+	      		border-radius: 79% 21% 81% 19% / 58% 93% 7% 42%;
+	    	}
+
+	    	&:hover{
+	      		border-radius: .5rem;
+	    	}
+
+		    i{
+		      	height:6.5rem;
+		      	width:6.5rem;
+		      	line-height:6.5rem;
+		      	font-size: 3rem;
+		      	color:$white;
+		      	background: $carrot-color;
+		      	border-radius: 50%;
+		      	margin-bottom: .5rem;
+		    }
+
+		    h3{
+		      	font-size: 2.2rem;
+		      	color: $black;
+		      	padding:1rem 0;
+		    }
+		    .amount{
+		      	font-size: 3rem;
+		      	font-weight: bolder;
+		      	color:$black;
+
+		      span{
+		        font-size: 2rem;
+		      }
+		  	}
+	  	}
+	}
+}
+
+.hotel{
+	.box-container{
+		justify-content: center;
+
+	  	@include grid(3, 30rem);
+
+	  	.box{
+		    position: relative;
+		    padding:2rem;
+		    border-radius: .5rem;
+		    position: relative;
+		    margin-bottom: 2rem;
+		    background: $light-bg;
+
+	    .btn{
+	      	position: absolute;
+	      	bottom:-2rem; right:2rem;
+	      	background: $white;
+	    }
+
+	    .title{
+	      	text-align: center;
+	      	color:$carrot-color;
+	      	font-size: 2rem;
+	    }
+
+	    .day{
+	      	text-align: center;
+	      	color:$black;
+	      	font-size: 3.5rem;
+	    }
+
+	    .icon{
+	      	color:$carrot-color;
+	      	font-size: 5rem;
+	      	padding:2rem 0;
+	    }
+
+	    .list{
+	      	margin:1rem 0;
+
+		    p{
+		        display: flex;
+		        align-items: center;
+		        justify-content: space-between;
+		        font-size: 1.4rem;
+		        color:$light-color;
+		        padding:1rem 0;
+
+	        span{
+	          	color:$carrot-color;
+	        }
+	      }
+	    }
+
+	    .amount{
+	      	font-size: 5rem;
+	      	font-weight: bolder;
+	      	color:$black;
+
+	      span{
+	        font-size: 3rem;
+	      }
+	    }
+	  }
+	}
+}
+
+.contact{
+	padding:10rem 0 0 0;
+	display: flex;
+	align-items: center;
+	gap:3rem;
+
+  	.image{
+    	width: 70rem;
+
+    	img{
+      		width: 100%;
+    	}
+  	}
+
+  	.contact-list{
+    	display: flex;
+		flex-direction: column;
+		align-self: center;
+    	padding:2rem 7%;
+
+	    h3{
+	      	font-size: 3rem;
+	      	padding-bottom: 1rem;
+	      	color:$black;
+	    }
+
+	    .box{
+	      	width: 100%;
+	      	border-bottom: $border;
+	      	border-width: .2rem;
+	      	font-size: 2rem;
+	     	text-transform: none;
+	     	color:$black;
+	      	margin: 2rem 0;
+	    }
+ 	}
+}
+
+footer{
+	position: relative;
+	background: url("../images/front/footer_background.jpg") no-repeat;
+	background-position: center;
+	background-size: cover;
+	padding-top: 5rem;
+
+
+	img{
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 13rem;
+		width: 100%;
+	}
+
+	.share{
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 1.5rem;
+		margin-top: 5rem;
+
+		a{
+			@include white-btn();
+
+			i{
+				padding-right: 1rem;
+			}
+		}
+	
+
+	}
+	.credit{
+		text-align: center;
+		color: $white;
+		font-size: 1.5rem;
+		padding: 2rem 1rem;
+		margin-top: 0.5rem;
+
+		span{
+			color: $carrot-color;
+		}
+	}
+}
+
+
+.cart{
+  	display: flex;
+   	margin: 3rem 0 5rem 0;
+  	  	
+	.shopping-cart {
+	  width: 100rem;
+	  background: #FFFFFF;
+	  box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 10%);
+	  border-radius: 1rem;
+	  margin: 0 9% 0 5%;
+	
+	  display: flex;
+	  flex-direction: column;
+		
+
+		
+	  .title{
+	    border-bottom:  2px solid #E1E8EE;
+	    font-size: 2.5rem;
+	    
+	    h3{
+			color: $black;
+			font-size: 2.5rem;
+			padding: 2rem;
+		}
+	  }
+	
+	  .item {
+	    padding: 1.3rem 1.9rem;
+	    height: 10rem;
+	    display: flex;
+	    align-items: center;
+	    border-bottom:  1px solid #E1E8EE;
+	  }
+	
+	  .buttons {
+	    position: relative;
+	    width: 3rem;
+	    text-align: center;
+	    color: red;
+	    font-size: 2.5rem;
+	  }
+	
+	  .is-active {
+	    animation-name: animate;
+	    animation-duration: .8s;
+	    animation-iteration-count: 1;
+	    animation-timing-function: steps(28);
+	    animation-fill-mode: forwards;
+	  }
+	
+	  @keyframes animate {
+	    0%   { background-position: left;  }
+	    50%  { background-position: right; }
+	    100% { background-position: right; }
+	  }
+	
+	
+		.image{
+			height: 7rem;
+			width: 10rem;
+			overflow: hidden;
+			margin-right: 3rem;
+	
+			img{
+				height: 100%;
+				width:100%;
+				object-fit: contain;
+			}
+		}
+		
+		.quantity{
+			margin-right: 4rem;
+		}
+	  .description {
+	    margin-right: 4rem;
+	    width: 39rem;
+	    height: 7rem;
+	    font-size: 1.5rem;
+	    word-wrap: break-word;
+	    overflow: hidden;
+	  }
+		
+	  .description span {
+	    display: block;
+	    font-size: 0.9rem;
+	    color: #43484D;
+	  }
+	
+	  .description span:first-child {
+	    margin-bottom: 0.3rem;
+	    font-size: 2rem;
+	  }
+	
+	  .description span:last-child {
+	    margin-top: 0.5rem;
+	    color: #86939E;
+	    font-size: 1.5rem;
+	  }
+	
+	
+	  .quantity input {
+	    -webkit-appearance: none;
+	    border: none;
+	    text-align: center;
+	    width: 2rem;
+	    font-size: 2rem;
+	    color: #43484D;
+	
+	  }
+	
+	  button[class*=btn] {
+	    width: 3rem;
+	    height: 3rem;
+	    background-color: #E1E8EE;
+	    border-radius: 0.4rem;
+	    border: none;
+	    cursor: pointer;
+	    font-size: 2rem;
+	  }
+	  .minus-btn img {
+	    margin-bottom: 0.2rem;
+	  }
+	  .plus-btn img {
+	    margin-top: 0.1rem;
+	  }
+	
+	  button:focus,
+	  input:focus {
+	    outline:0;
+	  }
+	
+	  .price{
+	    width: 10rem;
+	    text-align: center;
+	    font-size: 2rem;
+	    color: #43484D;
+	    margin-right: 4rem;
+	  }
+	
+	  .item-total {
+	    width: 10rem;
+	    text-align: center;
+	    font-size: 2rem;
+	    color: #43484D;
+	    font-weight: bold;
+	  }
+	
+	  .total-order{
+	      display: flex;
+	      align-self: flex-end;
+	      align-items: center;
+	      height: 5rem;
+	      font-size: 2.5rem;
+	      font-weight: bold;
+	      padding-right: 4rem;
+	  }
+	}
+	
+	.delivery-form{
+		right: 2rem;
+		width: 35rem;
+		border-radius: 1rem;
+		background: $white;
+		box-shadow: $box-shadow;
+		padding: 2rem;
+		z-index: 100;
+
+		&.active{
+			display: block;
+			animation: fadeIn .4s linear;	
+		}
+
+		h3{
+			color: $black;
+			font-size: 2.5rem;
+			padding-bottom: .5rem;
+		}
+
+		.box{
+			width: 100%;
+			border-bottom: $border;
+			border-width: .1rem;
+			padding: 1.5rem 0;
+			font-size: 1.6rem;
+			color: $black;
+			text-transform: none;
+			margin: 1rem 0;
+		}
+
+		.delivery-date{
+			border-bottom: $border;
+			border-width: .1rem;
+			padding: 1.5rem 0;
+			font-size: 1.6rem;
+			color: $black;
+			text-transform: none;
+			margin: 1rem 0;
+
+			input{
+				font-size: 1.6rem;
+				color: $light-color;
+			}
+		}
+
+		.checkbox{
+			display: flex;
+			align-items: center;
+			gap: .5rem;
+			padding: 1rem 0;
+
+			label{
+				font-size: 1.2rem;
+				cursor: pointer;
+				color: $light-color;
+			}
+		}
+
+		.btn{
+			@include form-btn();
+			margin: 1.5rem 0;
+		}
+
+		.links{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 1rem;
+
+			div{
+				font-size: 1.4rem;
+				color: $carrot-color;
+
+				&:hover{
+					color: $black;
+					cursor: pointer;
+					text-decoration: underline;
+				}
+			}
+		}
+		
+		label{
+	        font-size: 1.6rem;
+	      }
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
