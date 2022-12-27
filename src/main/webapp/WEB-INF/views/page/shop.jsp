@@ -12,7 +12,7 @@
 			<nav class="navbar-category">
 			</nav>
 		</div>
-		<div class="box-container">
+		<div class="box-container items">
 		</div>
 	</section>
 </main>

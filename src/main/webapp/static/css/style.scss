@@ -281,7 +281,7 @@ section{
 		box-shadow: $box-shadow;
 		padding: 2rem;
 		display: none;
-		z-index: 100;
+		z-index: 1000;
 
 		&.active{
 			display: block;

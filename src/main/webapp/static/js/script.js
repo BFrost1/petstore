@@ -212,7 +212,7 @@ $(document).on("click", '.navbar-category div', function() {
 			$(".box-container").empty();
 			for (var i = 0; i < data.length; i++) {
 				var text = '<div class="box"> <div class="image"> <img src="./static/images/products/' + data[i].category.url + '/' + data[i].imageURL + '"> </div><div class="content"><h4>' + data[i].name + '</h4><h4>' + data[i].description + '</h4><div class="amount"> <h4>' + data[i].price + ' ₴</h4><div class="fa-solid fa-cart-plus buttom-product" id="' + data[i].id + '"></div></div></div></div>';
-				$(".box-container").append(text);
+				$(".items").append(text);
 			}
 		}
 	});
@@ -227,7 +227,7 @@ $(document).ready(function() {
 		success: function(data) {
 			for (var i = 0; i < data.length; i++) {
 				var text = '<div class="box"> <div class="image"> <img src="./static/images/products/' + data[i].category.url + '/' + data[i].imageURL + '"> </div><div class="content"><h4>' + data[i].name + '</h4><h4>' + data[i].description + '</h4><div class="amount"> <h4>' + data[i].price + ' ₴</h4><div class="fa-solid fa-cart-plus buttom-product" id="' + data[i].id + '"></div></div></div></div>';
-				$(".box-container").append(text);
+				$(".items").append(text);
 			}
 		}
 	});

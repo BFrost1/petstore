@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class AccountFilter extends HttpFilter {
 
-	private static final long serialVersionUID = 6724214244981732734L;
+	private static final long serialVersionUID = -4285602577496307660L;
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
