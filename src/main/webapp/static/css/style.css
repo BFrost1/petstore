@@ -137,7 +137,7 @@ section {
   box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
   padding: 2rem;
   display: none;
-  z-index: 100;
+  z-index: 1000;
 }
 .header .login-form.active {
   display: block;
@@ -290,7 +290,7 @@ section {
   box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
   padding: 2rem;
   display: none;
-  z-index: 100;
+  z-index: 1000;
 }
 .header .cart-form.active {
   display: block;
@@ -398,12 +398,12 @@ section {
   align-self: center;
   width: 30rem;
 }
-.shop .category .navbar-category a {
+.shop .category .navbar-category div {
   height: 4rem;
   font-size: 1.9rem;
   color: #130f40;
 }
-.shop .category .navbar-category a:hover {
+.shop .category .navbar-category div:hover {
   color: #e67e22;
   cursor: pointer;
 }
@@ -471,7 +471,7 @@ section {
   color: #e67e22;
   margin: 0 1.5rem;
 }
-.shop .box-container .box .content .amount button {
+.shop .box-container .box .content .amount div {
   display: block;
   width: 5rem;
   height: 5rem;
@@ -481,7 +481,7 @@ section {
   color: green;
   text-align: center;
 }
-.shop .box-container .box .content .amount button:hover {
+.shop .box-container .box .content .amount div:hover {
   color: #fff;
   border-radius: 5rem;
   background: rgba(3, 177, 3, 0.5);

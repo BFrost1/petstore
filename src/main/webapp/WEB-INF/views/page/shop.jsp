@@ -10,11 +10,9 @@
 		<div class="category">
 			<h4>Що бажаєте?</h4>
 			<nav class="navbar-category">
-				<%@include file="/WEB-INF/views/components/categories_shop.jsp"%>
 			</nav>
 		</div>
 		<div class="box-container">
-			<%@include file="/WEB-INF/views/components/products_shop.jsp"%>
 		</div>
 	</section>
 </main>

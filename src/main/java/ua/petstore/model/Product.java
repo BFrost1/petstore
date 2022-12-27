@@ -2,14 +2,33 @@ package ua.petstore.model;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
+@Entity
+@NamedQueries({
+	@NamedQuery(name = "Product.getAllProduct", query = "SELECT p FROM Product p"),
+	@NamedQuery(name = "Product.getAllProductCategory", query = "SELECT p FROM Product p WHERE p.category.id = :category") })
 public class Product {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private String description;
 	private double price;
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Category category;
+	@Column(name = "image")
 	private String imageURL;
-	
+
 	public Product() {
 
 	}
@@ -33,14 +52,11 @@ public class Product {
 		this.imageURL = imageURL;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price
 				+ ", category=" + category + ", imageURL=" + imageURL + "]";
 	}
-
-	
 
 	@Override
 	public int hashCode() {

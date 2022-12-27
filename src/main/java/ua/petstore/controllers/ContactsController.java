@@ -1,24 +1,17 @@
 package ua.petstore.controllers;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import ua.petstore.services.ViewURL;
 
-import java.io.IOException;
-
-
-public class ContactsController extends HttpServlet {
-
-	private static final long serialVersionUID = 3004292783420520560L;
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher(ViewURL.URL_CONTACTS).forward(request, response);
+@Controller
+@RequestMapping("/contacts")
+public class ContactsController{
+	
+	@GetMapping
+	public String getContacts() {
+		return ViewURL.URL_CONTACTS_PAGE;
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
-
 }

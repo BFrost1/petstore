@@ -2,15 +2,31 @@ package ua.petstore.model;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
+@Entity
+@NamedQueries({
+		@NamedQuery(name = "User.getUserByEmailPassword", query = "SELECT u FROM User u WHERE u.email = :email AND u.password = :password"),
+		@NamedQuery(name = "User.getUserByEmail", query = "SELECT u FROM User u WHERE u.email = :email") })
 public class User {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Column(name = "first_name")
 	private String firstName;
+	@Column(name = "last_name")
 	private String lastName;
 	private String email;
 	private String password;
 	private String phone;
 	private boolean agreement;
-	
+
 	public User() {
 	}
 
@@ -23,7 +39,8 @@ public class User {
 		this.agreement = agreement;
 	}
 
-	public User(int id, String firstName, String lastName, String email, String password, String phone, boolean agreement) {
+	public User(int id, String firstName, String lastName, String email, String password, String phone,
+			boolean agreement) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;

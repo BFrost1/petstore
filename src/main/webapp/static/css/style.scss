@@ -206,7 +206,7 @@ section{
 		box-shadow: $box-shadow;
 		padding: 2rem;
 		display: none;
-		z-index: 100;
+		z-index: 1000;
 
 		&.active{
 			display: block;
@@ -487,15 +487,15 @@ section{
 		    align-self: center;
 		    width: 30rem;
 
-		    a{
-		    	height: 4rem;
-				font-size: 1.9rem;
-				color: $black;
+		    div{
+			    height: 4rem;
+					font-size: 1.9rem;
+					color: $black;
 
-				&:hover{
-					color: $carrot-color;
-					cursor: pointer;
-				}
+					&:hover{
+						color: $carrot-color;
+						cursor: pointer;
+					}
 		    }
 		}
 	}
@@ -573,7 +573,7 @@ section{
 			    	color:$carrot-color;
 			    	margin: 0 1.5rem;
 
-				    button{
+				    div{
 				        display: block;
 				        width: 5rem;
 				        height: 5rem;

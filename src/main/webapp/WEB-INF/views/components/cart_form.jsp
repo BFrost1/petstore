@@ -3,15 +3,19 @@
 <%@page isELIgnored="false"%>
 <div class="cart-form">
 	<h3>Ваше замолення</h3>
-	<c:forEach var="cart" items="${cart}">
-		<div class="box-cart" id="${cart.key.id}">
-			<div class="image">
-				<img src="./static/images/products/${cart.key.category.url}/${cart.key.imageURL}" alt="">
+	<div class="items-cart">
+		<c:forEach var="cart" items="${cart}">
+			<div class="box-cart" id="${cart.key.id}">
+				<div class="image">
+					<img
+						src="./static/images/products/${cart.key.category.url}/${cart.key.imageURL}"
+						alt="">
+				</div>
+				<h3>${cart.key.name}</h3>
+				<span>${cart.key.price} ₴</span>
+				<button class="delet-items">x</button>
 			</div>
-			<h3>${cart.key.name}</h3>
-			<span>${cart.key.price} ₴</span>
-			<button class="delet-items">x</button>
-		</div>
-	</c:forEach>
-	<button class="btn">Замовити</button>
+		</c:forEach>
+	</div>
+	<a href="./cart" class="btn">Замовити</a>
 </div>

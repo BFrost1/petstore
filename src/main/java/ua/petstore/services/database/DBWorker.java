@@ -10,6 +10,9 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class DBWorker {
 	private Logger logger = Logger.getLogger(DBWorker.class.getName());
 
@@ -30,8 +33,10 @@ public class DBWorker {
 			con = DriverManager.getConnection(configuration.getProperty("url"), configuration.getProperty("username"),
 					configuration.getProperty("password"));
 		} catch (IOException e) {
+			System.out.println(e.getMessage());
 			logger.log(Level.INFO, e.getMessage());
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			logger.log(Level.INFO, e.getMessage());
 		}
 		return con;

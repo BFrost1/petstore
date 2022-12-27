@@ -51,16 +51,13 @@ $(document).on("submit", "#login-form", function(e) {
 		type: "POST",
 		url: "./authorization",
 		data: $(this).serialize(),
-		dataType: 'json',
 		success: function(data) {
-			if($.isEmptyObject(data)){
+			if (data == "OK") {
 				$('header #login-form').remove();
 				$(".fa-user").remove();
 				user.append(iconsUser);
-			}else{
-				$.each(data, function(key, val) {
-					$(key).text(val);
-				});
+			} else {
+				$('#emailCheckError').text('Не вірний пароль або логін');
 			}
 		}
 	});
@@ -74,12 +71,12 @@ $(document).on("submit", "#reg-form", function(e) {
 		data: $(this).serialize(),
 		dataType: 'json',
 		success: function(data) {
-			if($.isEmptyObject(data)){
+			if ($.isEmptyObject(data)) {
 				$("#reg-form").remove();
 				$("header").append(loginForms);
 				$('header #login-form').addClass('active');
 				useForm = $('.header #login');
-			}else{
+			} else {
 				$.each(data, function(key, val) {
 					$(key).text(val);
 				});
@@ -90,9 +87,8 @@ $(document).on("submit", "#reg-form", function(e) {
 
 $(document).on("click", '#logout', function() {
 	$.ajax({
-		type: "GET",
+		type: "DELETE",
 		url: "./authorization",
-		data: {"logout": "logout"},
 		success: function(data) {
 			location.reload();
 		}
@@ -102,77 +98,190 @@ $(document).on("click", '#logout', function() {
 
 
 $(document).ready(function() {
- sumItem();
+	sumItem();
 });
 
- $('.minus-btn').on('click', function(e) {
-  e.preventDefault();
-  var $this = $(this);
-  var $input = $this.closest('div').find('input');
-  var value = parseInt($input.val());
+$('.minus-btn').on('click', function(e) {
+	e.preventDefault();
+	var $this = $(this);
+	var $input = $this.closest('div').find('input');
+	var value = parseInt($input.val());
 
-  if (value > 1) {
-    value = value - 1;
-  } else {
-    value = 1;
-  }
+	if (value > 1) {
+		value = value - 1;
+	} else {
+		value = 1;
+	}
 
-  $input.val(value);
-  sum($this.closest('.item'), value);
+	$.ajax({
+		url: "./cart/count",
+		type: "POST",
+		data: { "id": $this.closest('.item').attr('id'), "count": value },
+		success: function(data) {
+			if (data == "OK") {
+				$input.val(value);
+				sum($this.closest('.item'), value);
+			}
+		}
+	});
+
 });
 
 $('.plus-btn').on('click', function(e) {
-  e.preventDefault();
-  var $this = $(this);
-  var $input = $this.closest('div').find('input');
-  var value = parseInt($input.val());
+	e.preventDefault();
+	var $this = $(this);
+	var $input = $this.closest('div').find('input');
+	var value = parseInt($input.val());
 
-  if (value < 100) {
-    value = value + 1;
-  } else {
-    value = 100;
-  }
-  $input.val(value);
-  sum($this.closest('.item'), value);
+	if (value < 100) {
+		value = value + 1;
+	} else {
+		value = 100;
+	}
+	$.ajax({
+		url: "./cart/count",
+		type: "POST",
+		data: { "id": $this.closest('.item').attr('id'), "count": value },
+		success: function(data) {
+			if (data == "OK") {
+				$input.val(value);
+				sum($this.closest('.item'), value);
+			}
+		}
+	});
 });
 
 $('.like-btn').on('click', function() {
-  $(this).toggleClass('is-active');
+	$(this).toggleClass('is-active');
 });
 
 $('.buttons').on('click', function() {
-  $(this).closest('.item').remove();
-  sumTotal();
+	var $this = $(this);
+	var id = $this.closest('.item').attr('id');
+	$.ajax({
+		url: "./cart/delete",
+		type: "POST",
+		data: { "id": id },
+		success: function(data) {
+			if (data == "OK") {
+				$this.closest('.item').remove();
+				$(".cart-form").find('#' + id).remove();
+				sumTotal();
+			}
+		}
+	});
+
 });
 
-function sum($item, value){
-    var $price = $item.find('.price');
-    var $total = $item.find('.item-total');
-    $total.text(parseInt($price.text()) * value + ' ₴');
-    sumTotal();
+function sum($item, value) {
+	var $price = $item.find('.price');
+	var $total = $item.find('.item-total');
+	$total.text(parseInt($price.text()) * value + ' ₴');
+	sumTotal();
 }
 
-function sumTotal(){
-    var items = $('.item');
-    var elemsTotal = items.length;
-    var sum = 0;
+function sumTotal() {
+	var items = $('.item');
+	var elemsTotal = items.length;
+	var sum = 0;
 
-    for(var i=0; i < elemsTotal; ++i){
-      sum = sum + parseInt($(items[i]).find('.item-total').text());
-    }
-    $('#total').text(sum + ' ₴');
+	for (var i = 0; i < elemsTotal; ++i) {
+		sum = sum + parseInt($(items[i]).find('.item-total').text());
+	}
+	$('#total').text(sum + ' ₴');
 }
 
 
-function sumItem(){
-    var items = $('.item');
-    var elemsTotal = items.length;
+function sumItem() {
+	var items = $('.item');
+	var elemsTotal = items.length;
 
-    for(var i=0; i < elemsTotal; ++i){		
-		$(items[i]).find('.item-total').text(parseInt($(items[i]).find('input').val()) * parseInt($(items[i]).find('.price').text()));
-    }
-    sumTotal();
+	for (var i = 0; i < elemsTotal; ++i) {
+		$(items[i]).find('.item-total').text(parseInt($(items[i]).find('input').val()) * parseInt($(items[i]).find('.price').text()) + ' ₴');
+	}
+	sumTotal();
 }
+
+
+$(document).on("click", '.navbar-category div', function() {
+	$.ajax({
+		type: "GET",
+		url: "http://localhost:8082/product/category",
+		data: { "id": $(this).attr('id') },
+		success: function(data) {
+			$(".box-container").empty();
+			for (var i = 0; i < data.length; i++) {
+				var text = '<div class="box"> <div class="image"> <img src="./static/images/products/' + data[i].category.url + '/' + data[i].imageURL + '"> </div><div class="content"><h4>' + data[i].name + '</h4><h4>' + data[i].description + '</h4><div class="amount"> <h4>' + data[i].price + ' ₴</h4><div class="fa-solid fa-cart-plus buttom-product" id="' + data[i].id + '"></div></div></div></div>';
+				$(".box-container").append(text);
+			}
+		}
+	});
+});
+
+
+$(document).ready(function() {
+	$.ajax({
+		type: "GET",
+		url: "http://localhost:8082/product/category",
+		data: { "id": 4 },
+		success: function(data) {
+			for (var i = 0; i < data.length; i++) {
+				var text = '<div class="box"> <div class="image"> <img src="./static/images/products/' + data[i].category.url + '/' + data[i].imageURL + '"> </div><div class="content"><h4>' + data[i].name + '</h4><h4>' + data[i].description + '</h4><div class="amount"> <h4>' + data[i].price + ' ₴</h4><div class="fa-solid fa-cart-plus buttom-product" id="' + data[i].id + '"></div></div></div></div>';
+				$(".box-container").append(text);
+			}
+		}
+	});
+});
+
+
+$(document).ready(function() {
+	$.ajax({
+		type: "GET",
+		url: "http://localhost:8082/category",
+		success: function(data) {
+			for (var i = 0; i < data.length; i++) {
+				var text = '<div id = "'+ data[i].id + '" class="'+ data[i].icon +'"> ' + data[i].name + '</div>';
+				$(".navbar-category").append(text);
+			}
+		}
+	});
+});
+
+
+$(document).on("click", '.buttom-product', function() {
+	$.ajax({
+		url: "./cart",
+		type: "POST",
+		data: { "id": $(this).attr('id') },
+		success: function(data) {
+			$(".items-cart").empty();
+			var jsonData = JSON.parse(data);
+			for (var i = 0; i < jsonData.length; i++) {
+				var text = '<div class="box-cart" id="' + jsonData[i].id + '"><div class="image"><img src="./static/images/products/' + jsonData[i].category.url + '/' + jsonData[i].imageURL + '"></div><h3>' + jsonData[i].name + '</h3><span>' + jsonData[i].price + ' ₴</span><button class="delet-items">x</button>';
+				$(".items-cart").append(text);
+			}
+		}
+	});
+});
+
+
+
+$(document).on("click", '.delet-items', function() {
+	var $this = $(this).closest('.box-cart');
+	var id = $this.attr('id');
+	$.ajax({
+		url: "./cart/delete",
+		type: "POST",
+		data: { "id": id },
+		success: function(data) {
+			if (data == "OK") {
+				$this.remove();
+				$(".shopping-cart").find('#' + id).remove();
+				sumTotal();
+			}
+		}
+	});
+});
 
 
 

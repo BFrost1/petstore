@@ -33,7 +33,7 @@
 		            </button>
 		          </div>
 		          <div class="price">${cart.key.price} ₴</div>
-		          <div class="item-total">549 ₴</div>
+		          <div class="item-total"></div>
 		        </div>
 		      </c:forEach>
 	        <div class = "total-order">

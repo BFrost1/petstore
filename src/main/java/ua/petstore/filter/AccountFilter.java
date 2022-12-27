@@ -1,7 +1,6 @@
 package ua.petstore.filter;
 
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
@@ -17,11 +16,6 @@ public class AccountFilter extends HttpFilter {
 	private static final long serialVersionUID = 6724214244981732734L;
 
 	@Override
-	public void destroy() {
-
-	}
-	
-	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		if (Objects.isNull(((HttpServletRequest) request).getSession().getAttribute("user"))) {
 			((HttpServletResponse) response).sendRedirect("./");
@@ -29,10 +23,4 @@ public class AccountFilter extends HttpFilter {
 			chain.doFilter(request, response);
 		}
 	}
-
-	@Override
-	public void init(FilterConfig fConfig) throws ServletException {
-
-	}
-
 }

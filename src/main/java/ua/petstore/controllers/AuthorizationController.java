@@ -1,52 +1,45 @@
 package ua.petstore.controllers;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import ua.petstore.dao.UserDAO;
 import ua.petstore.model.User;
-import ua.petstore.services.ValidationForms;
-import ua.petstore.services.database.DBWorker;
-import ua.petstore.services.database.UserManager;
 
-import java.io.IOException;
-import java.util.Map;
 import java.util.Objects;
 
-import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-public class AuthorizationController extends HttpServlet {
+import jakarta.servlet.http.HttpSession;
 
-	private static final long serialVersionUID = -4867597385047375698L;
-
-	private UserManager userManager;
-	private Gson gson;
+@Controller
+@RequestMapping("/authorization")
+public class AuthorizationController {
 	
-	@Override
-	public void init() throws ServletException {
-		this.userManager = new UserManager(new DBWorker());
-		this.gson = new Gson();
-	}
-	
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(Objects.nonNull(request.getParameter("logout"))) {
-			request.getSession().invalidate();
-			request.getSession(true);
+	@Autowired
+	private UserDAO userManager;
+
+	@PostMapping
+	@ResponseBody
+	public String getLogin(HttpSession session, @RequestParam String email, @RequestParam String password) {
+		User user = userManager.getUserByLoginPassword(email, password);
+		HttpStatus status = HttpStatus.OK;
+		if (Objects.nonNull(user)) {
+			session.setAttribute("user", user);
+		} else {
+			status = HttpStatus.NOT_FOUND;
 		}
+		return status.getReasonPhrase();
 	}
-	
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Map<String, String> errors = ValidationForms.isValidFormLogin(request);
-		if(errors.isEmpty()) {
-			User user = userManager.getUser(request.getParameter("email"), request.getParameter("password"));
-			if(Objects.nonNull(user)) {
-				request.getSession().setAttribute("user", user);
-			}else {
-				errors.put("#emailCheckError", "Невірний пароль або логін");
-			}
-		}
-		response.getWriter().write(gson.toJson(errors));
+
+	@DeleteMapping
+	@ResponseBody
+	public String getLogout(HttpSession session) {
+		session.setAttribute("user", null);
+		return HttpStatus.OK.getReasonPhrase();
 	}
 }
